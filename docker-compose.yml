@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  lookafter_api:
+    image: node:10-jessie
+    container_name: lookafter_api
+    volumes:
+      - ./api:/api
+      - ./api/node_modules:/api/node_modules
+    ports:
+      - 3000:3000
+    # command: sleep 3000
+    command: bash -c "cd /api; npm i; npm start"
+  lookafter_app_dev:
+    build: ./app/
+    image: pm2:latest
+    container_name: lookafter_app_dev
+    volumes:
+      - ./app:/lookafter
+      - ./app/node_modules:/lookafter/node_modules
+    ports:
+      - 4200:4200
+    command: bash -c "cd /lookafter; npm i; ng serve --host 0.0.0.0 --watch"
+  lookafter_app_server:
+    image: nginx:1.15
+    container_name: lookafter_app_server
+    volumes:
+      - ./app:/app
+  lookafter_db:
+    image: couchdb:latest
+    container_name: lookafter_db
+    environment:
+      - COUCHDB_USER=lookafter
+      - COUCHDB_PASSWORD=lookafter
+      - NODENAME=lookafter
+    volumes:
+      - ./db:/opt/couchdb/data
+    ports:
+      - 5984:5984
