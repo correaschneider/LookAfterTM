@@ -1,8 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const home = require('./routes/home');
-const orders = require('./routes/orders');
+const order = require('./routes/order');
 const diaper = require('./routes/diaper');
 
 const port = 3000;
@@ -18,8 +17,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(home);
-app.use(orders);
+app.use(order);
 app.use(diaper);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

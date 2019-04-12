@@ -17,11 +17,11 @@ export class DiaperService {
   constructor(private httpClient: HttpClient) { }
 
   getDiapers () {
-    return this.httpClient.get<Data>('http://localhost:3000');
+    return this.httpClient.get<Data>('http://localhost:3000/diaper');
   }
   
   postOrder(order) {
-    return this.httpClient.post('http://localhost:3000/orders', order, httpOptions);
+    return this.httpClient.post('http://localhost:3000/order', order, httpOptions);
   }
   
   getDiaper(diaper_id) {
