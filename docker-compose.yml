@@ -21,7 +21,7 @@ services:
     ports:
       - 4200:4200
     # command: bash -c "cd /lookafter; npm i; ng serve --host 0.0.0.0 --watch"
-    command: bash -c "cd /; npm i; ng b lookafter --prod"
+    command: bash -c "cd /lookafter; npm i; ng b lookafter --prod"
   lookafter_app_server:
     image: nginx:1.15
     container_name: lookafter_app_server
