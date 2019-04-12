@@ -13,19 +13,23 @@ services:
     command: bash -c "cd /api; npm i; npm start"
   lookafter_app_dev:
     build: ./app/
-    image: pm2:latest
+    image: angular:7-cli
     container_name: lookafter_app_dev
     volumes:
       - ./app:/lookafter
       - ./app/node_modules:/lookafter/node_modules
     ports:
       - 4200:4200
-    command: bash -c "cd /lookafter; npm i; ng serve --host 0.0.0.0 --watch"
+    # command: bash -c "cd /lookafter; npm i; ng serve --host 0.0.0.0 --watch"
+    command: bash -c "cd /; npm i; ng b lookafter --prod"
   lookafter_app_server:
     image: nginx:1.15
     container_name: lookafter_app_server
+    ports:
+      - 80:80
     volumes:
-      - ./app:/app
+      - ./app/dist/lookafter:/app
+      - ./app/lookafter.conf:/etc/nginx/conf.d/default.conf
   lookafter_db:
     image: couchdb:latest
     container_name: lookafter_db

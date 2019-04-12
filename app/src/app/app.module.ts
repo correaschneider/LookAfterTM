@@ -7,14 +7,20 @@ import {
     MatCardModule,
     MatGridListModule,
     MatSnackBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
 } from '@angular/material';
+
+import { FormsModule } from '@angular/forms';
 
 const MatModule = [
   MatCardModule,
   MatGridListModule,
   MatSnackBarModule,
-  MatButtonModule
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule
 ];
 
 import { DiaperService } from './services/diaper.service';
@@ -37,6 +43,7 @@ const Components = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     ...MatModule
   ],
   providers: [DiaperService],

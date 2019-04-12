@@ -1,3 +1,60 @@
+<div class="mdc-form-field">
+  <div class="mat-form-field-infix">
+    <mat-form-field>
+      <input matInput placeholder="Model" [(ngModel)]="model">
+    </mat-form-field>
+  </div>
+  <div class="mat-form-field-infix">
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="description"></textarea>
+    </mat-form-field>
+  </div>
+  <h3>Sizes</h3>
+    <mat-grid-list cols="3" rowHeight="30px">
+      <mat-grid-tile>
+        Small
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Quantity" type="number" [(ngModel)]="s">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Purchased" type="number" [(ngModel)]="sp">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        Medium
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Quantity" type="number" [(ngModel)]="m">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Purchased" type="number" [(ngModel)]="mp">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        Large
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Quantity" type="number" [(ngModel)]="l">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Purchased" type="number" [(ngModel)]="lp">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+      <button mat-raised-button (click)="submit()">Save</button>
+    </div>
+
 <mat-grid-list cols="4" rowHeight="100%">
   <mat-grid-tile *ngFor="let diaper of diapers">
       <mat-card>

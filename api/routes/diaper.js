@@ -11,6 +11,12 @@ router.get('/diaper', (req, res) => {
     Diaper.get().then((data) => res.send(data), (err) => res.send(err));
 });
 
+router.post('/diaper', (req, res) => {
+    let diaper = req.body;
+    
+    Diaper.set(diaper).then((data) => res.send(data), (err) => res.send(err));
+});
+
 router.get('/diaper/:diaper_id', (req, res) => {
     let diaper_id = req.params.diaper_id;
     

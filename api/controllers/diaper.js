@@ -11,6 +11,16 @@ const Diaper = {
             return result.data;
         }, (err) => err);
     },
+    
+    set (diaper) {
+        diaper.sizes.map((size, i) => {
+            diaper.sizes[i].last_update = new Date().getTime();
+        });
+
+        return couch.insert(dbName_diapers, diaper).then((result) => {
+            return result.data;
+        }, (err) => err);
+    },
 
     getByID (id) {
         return couch.get(dbName_diapers, id).then((result) => {
@@ -49,11 +59,11 @@ const Diaper = {
                             return 0;
                         });
                         
-                        let lastTime = 0;
+                        let lastTime = size.last_update;
                         orders.map((order) => {
                             itemsTotal += order.quantity;
                             
-                            diffTime = Math.abs((order.time || 0) - lastTime);
+                            diffTime = order.time - lastTime;
                             diffMinutes += diffTime;
                             
                             lastTime = order.time;
@@ -63,7 +73,7 @@ const Diaper = {
 
                         let total = (avaliable * diffMinutes) / itemsTotal;
 
-                        size.time_to_zero = total;
+                        size.time_to_zero = Math.ceil(total);
                     }
 
                     return size;

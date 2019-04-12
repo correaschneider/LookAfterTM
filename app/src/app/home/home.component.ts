@@ -12,6 +12,14 @@ import { Diaper, Size } from '../interfaces/diapers';
 })
 export class HomeComponent implements OnInit {
   diapers: Diaper[] = [];
+  model: string;
+  description: string;
+  s: string;
+  sp: string;
+  m: string;
+  mp: string;
+  l: string;
+  lp: string;
 
   durationInSeconds = 5;
 
@@ -36,18 +44,53 @@ export class HomeComponent implements OnInit {
         this.diapersService.getDiaper(order.diaper_id)
         .subscribe((diaper) => {
           console.log(diaper);
-          let size = diaper.sizes.filter((size) => size.size === order.size);
-          size = size[0];
-          console.log(size)
+          let _size = diaper.sizes.filter((size) => size.size === order.size);
+          size = _size[0];
 
-          let ref2 = this.snackBar.openFromComponent(SnackbarComponent, {
-            duration: this.durationInSeconds * 1000,
-          });
-          
-          ref2.instance.message = `This diaper is finished in ${size.time_to_zero} minutes`;
+          if (size.time_to_zero) {
+            let ref2 = this.snackBar.openFromComponent(SnackbarComponent, {
+              duration: this.durationInSeconds * 1000,
+            });
+            
+            ref2.instance.message = `This diaper is finished in ${size.time_to_zero} minutes`;
+          }
         });
       }, this.durationInSeconds * 1000);
     });
+  }
+
+  submit() {
+    let diaper = {
+      model: this.model,
+      description: this.description,
+      sizes: [
+        {
+          size: 'S',
+          avaliable: this.s,
+          purchased: this.sp
+        },
+        {
+          size: 'M',
+          avaliable: this.m,
+          purchased: this.mp
+        },
+        {
+          size: 'L',
+          avaliable: this.l,
+          purchased: this.lp
+        }
+      ]
+    };
+
+    this.diapersService.setDiaper(diaper).subscribe((data) => {
+      let ref = this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: this.durationInSeconds * 1000,
+      });
+      
+      ref.instance.message = `Diaper saved`;
+
+      window.location.reload();
+    })
   }
 
   ngOnInit() {

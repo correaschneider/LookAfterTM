@@ -24,3 +24,7 @@ export interface Data {
     offset: number,
     rows: Array<Row>
 }
+
+export interface Message {
+    message: string
+}
